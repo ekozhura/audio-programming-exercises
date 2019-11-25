@@ -1,0 +1,1 @@
+This project is a playground for examples and exercises from "Audio Programming Book" and "Computer Music Instruments" books.
