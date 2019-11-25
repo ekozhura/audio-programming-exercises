@@ -44,18 +44,23 @@ int saveFile() {
 }
 
 int main() { 
+  printf("read file");
+  // const unsigned int size = 10000;
+  // double tab[size];
+  // const double *out;
 
-  const unsigned int size = 10000;
-  double tab[size];
-  const double *out;
+  // Osc osc(0.5, 440., tab, size);
 
-  Osc osc(0.5, 440., tab, size);
-
-  for(int i = 0; i < size; i++) {
-    tab[i] = 05 * (sin(i*twopi/size) + sin(2*i*twopi/size));
-  }
+  // for(int i = 0; i < size; i++) {
+  //   tab[i] = 05 * (sin(i*twopi/size) + sin(2*i*twopi/size));
+  // }
 
   saveFile();
+  SNDFILE *fin;
+  SF_INFO info_in;
+  fin = openSoundfile((char *) "unprocessed.wav", 'r', &info_in);
+  
+  playSound(fin);
   // for (int i = 0; i < osc.sr; i += osc.vsize) {
   //   out = osc.process();
   //   for (int j = 0; j < osc.vsize; j++) 
