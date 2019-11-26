@@ -1,7 +1,5 @@
-#include <stdio.h> 
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
 #include <sndfile.h>
 #include <portaudio.h>
 #include "utils.h"
@@ -26,6 +24,19 @@ void process(double *inbuf, double *outbuf, sf_count_t cnt) {
   }
 }
 
+void createStreamParams(
+    PaStreamParameters *params,
+    int device, 
+    int channelsNum, 
+    PaSampleFormat sampleFormat, 
+    PaTime latency) {
+  params->device = (PaDeviceIndex) device;
+  params->channelCount = channelsNum;
+  params->sampleFormat = sampleFormat;
+  params->suggestedLatency = latency;
+  params->hostApiSpecificStreamInfo = NULL;
+}
+
 int playSound(SNDFILE *fin) {
   PaError err;
   PaStreamParameters outparams;
@@ -41,11 +52,7 @@ int playSound(SNDFILE *fin) {
     buf = (float *) malloc(sizeof(float) * buffsize);
     memset(buf, 0, sizeof(float) * buffsize);
 
-    outparams.device = (PaDeviceIndex) dev;
-    outparams.channelCount = chn;
-    outparams.sampleFormat = paFloat32;
-    outparams.suggestedLatency = (PaTime) (BUFFRAMES/(double) sr);
-    outparams.hostApiSpecificStreamInfo = NULL;
+    createStreamParams(&outparams, dev, chn, paFloat32, (BUFFRAMES/(double) sr));
 
     err = Pa_OpenStream(
       &handle, NULL, &outparams, 
@@ -75,3 +82,4 @@ int playSound(SNDFILE *fin) {
   return 0;
 
 }
+

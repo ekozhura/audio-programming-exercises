@@ -44,7 +44,6 @@ int saveFile() {
 }
 
 int main() { 
-  printf("read file");
   // const unsigned int size = 10000;
   // double tab[size];
   // const double *out;
