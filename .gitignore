@@ -2,3 +2,4 @@
 *.o
 osc
 processed.wav
+.DS_Store

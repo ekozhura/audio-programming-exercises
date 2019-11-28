@@ -4,7 +4,7 @@
 #include <portaudio.h>
 #include "utils.h"
 
-#define BUFFRAMES 4096
+#define BUFFRAMES 128
 
 SNDFILE *openSoundfile(
     char *filename,
